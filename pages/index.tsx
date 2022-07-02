@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   }
 
   const hook = () => {
-    axios.get('http://localhost:3001/characters').then(
+    axios.get('/api/characters').then(
       response => {
         console.log(response.data)
         startInitiative(response.data)

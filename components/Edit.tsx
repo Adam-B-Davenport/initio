@@ -1,13 +1,13 @@
-import { ChangeEventHandler, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import type { Character } from '../types/character'
 
 const EditorRow = ({ character, update }: { character: Character, update: () => void }) => {
   const [name, setName] = useState(`${character.name}`)
   const [initiative, setInitiative] = useState(`${character.initiative}`)
 
-  const nameChange = (event: any) => {
-    setName(event.target.name)
-    character.name = name
+  const nameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+    character.name = event.target.value
     update()
   }
 
@@ -15,25 +15,24 @@ const EditorRow = ({ character, update }: { character: Character, update: () => 
     <div className={`${character.isPlayer ? "player" : "enemy"} character`} >
       <div className='charGrid'>
         <div className='charName'>
-          <input typeof='number' value={name} onChange={nameChange} />
+          <input value={name} onChange={nameChange} />
         </div>
         <div className='initiative'>
           <input typeof='number' value={initiative} onChange={(event) => {
-            try{
+            try {
               console.log(event.target.value)
               const val = parseInt(event.target.value)
               setInitiative(event.target.value)
-              if (val){
+              if (val) {
                 character.initiative = val
                 update()
               }
             }
-            catch (e){
+            catch (e) {
               console.log(e)
 
             }
           }
-
           } />
         </div>
       </div>

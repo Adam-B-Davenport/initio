@@ -70,7 +70,7 @@ const Home: NextPage = () => {
     }
   }
   const prev = () => {
-    if (nextTurn.length > 0 || turn > 0) {
+    if (nextTurn.length > 0 || turn > 1) {
       if (nextTurn.length > 0) {
         let newNext = nextTurn
         setCurrent(newNext.splice(newNext.length - 1, 1).concat(currentTurn))

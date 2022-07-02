@@ -16,18 +16,19 @@ const Home: NextPage = () => {
   const startInitiative = (chars: Array<Character>) => {
     chars.sort((a, b) => b.initiative - a.initiative)
     setCurrent(chars)
+    setTurn(1)
   }
 
   const addChar = () => {
     const id = Math.floor(Math.random() * 99999) + 5
     const chars = currentTurn.concat(nextTurn)
-    chars.concat({
+    startInitiative( chars.concat({
       id: id,
       name: "npc",
       initiative: 0,
       isPlayer: false,
     })
-    startInitiative(chars)
+)
   }
 
   const hook = () => {

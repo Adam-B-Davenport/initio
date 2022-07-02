@@ -6,6 +6,11 @@ import CharacterDisplay from '../components/CharacterDisplay';
 import Editor from '../components/Edit';
 //import styles from '../styles/Home.module.css'
 
+const InitComp = (a: Character, b: Character) => {
+  return b.initiative - a.initiative
+
+}
+
 const Home: NextPage = () => {
 
   const [currentTurn, setCurrent] = useState(Array<Character>())
@@ -14,21 +19,20 @@ const Home: NextPage = () => {
   const [edit, setEdit] = useState(false)
 
   const startInitiative = (chars: Array<Character>) => {
-    chars.sort((a, b) => b.initiative - a.initiative)
-    setCurrent(chars)
-    setTurn(1)
+    setCurrent(chars.sort(InitComp))
+    setNext(new Array<Character>())
   }
 
   const addChar = () => {
     const id = Math.floor(Math.random() * 99999) + 5
-    const chars = currentTurn.concat(nextTurn)
-    startInitiative( chars.concat({
+    setCurrent(currentTurn.concat({
       id: id,
       name: "npc",
       initiative: 0,
       isPlayer: false,
     })
-)
+    .sort(InitComp)
+    )
   }
 
   const hook = () => {
@@ -45,6 +49,12 @@ const Home: NextPage = () => {
     startInitiative(currentTurn.concat(nextTurn))
   }
 
+  const startOver = () => {
+    setEdit(false)
+    startInitiative(currentTurn.concat(nextTurn))
+    setTurn(1)
+  }
+
   useEffect(hook, [])
 
   const next = () => {
@@ -54,7 +64,7 @@ const Home: NextPage = () => {
       setCurrent(newCur)
     }
     else {
-      setCurrent(nextTurn.concat(...currentTurn))
+      setCurrent(nextTurn.concat(...currentTurn).sort(InitComp))
       setNext(new Array<Character>())
       setTurn(turn + 1)
     }
@@ -94,7 +104,7 @@ const Home: NextPage = () => {
     );
 
   }
-  else{
+  else {
     return (
       <div className="App">
         <h1>Turn {turn}</h1>
@@ -104,6 +114,7 @@ const Home: NextPage = () => {
         <div className='controls'>
           <button className='btn' onClick={addChar}>+</button>
           <button className='btn' onClick={toggleEdit}>≡</button>
+          <button className='btn' onClick={startOver}>Reset</button>
         </div>
       </div>
     );

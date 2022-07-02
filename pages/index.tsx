@@ -38,7 +38,6 @@ const Home: NextPage = () => {
   const hook = () => {
     axios.get('/api/characters').then(
       response => {
-        console.log(response.data)
         startInitiative(response.data)
       }
     )

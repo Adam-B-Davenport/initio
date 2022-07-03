@@ -27,7 +27,7 @@ const EditorRow = ({ character, update }: { character: Character, update: () => 
     }
   }
   return (
-    [
+    <>
     <div className={`${character.isPlayer ? "player" : "enemy"} character`} >
       <div className='charGrid'>
         <div className='charName'>
@@ -37,11 +37,11 @@ const EditorRow = ({ character, update }: { character: Character, update: () => 
           <input typeof='number' value={initiative} onChange={initiativeChange} />
         </div>
       </div>
-    </div >,
+    </div >
     <div className='outerCol'>
       <input type='button' className='deleteButton' value='X'/>
     </div>
-    ]
+    </>
   )
 
 }

@@ -11,32 +11,37 @@ const EditorRow = ({ character, update }: { character: Character, update: () => 
     update()
   }
 
+  const initiativeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    try {
+      console.log(event.target.value)
+      const val = parseInt(event.target.value)
+      setInitiative(event.target.value)
+      if (val) {
+        character.initiative = val
+        update()
+      }
+    }
+    catch (e) {
+      console.log(e)
+
+    }
+  }
   return (
+    [
     <div className={`${character.isPlayer ? "player" : "enemy"} character`} >
       <div className='charGrid'>
         <div className='charName'>
           <input value={name} onChange={nameChange} />
         </div>
         <div className='initiative'>
-          <input typeof='number' value={initiative} onChange={(event) => {
-            try {
-              console.log(event.target.value)
-              const val = parseInt(event.target.value)
-              setInitiative(event.target.value)
-              if (val) {
-                character.initiative = val
-                update()
-              }
-            }
-            catch (e) {
-              console.log(e)
-
-            }
-          }
-          } />
+          <input typeof='number' value={initiative} onChange={initiativeChange} />
         </div>
       </div>
-    </div >
+    </div >,
+    <div className='outerCol'>
+      <input type='button' className='deleteButton' value='X'/>
+    </div>
+    ]
   )
 
 }
@@ -49,8 +54,7 @@ const Editor = ({ characters, startInitiative }: { characters: Array<Character>,
     startInitiative(characters)
   }
   return (
-    <div>
-      <h3>Edit</h3>
+    <div className='initiativeList'>
       {players.map((character: Character) => <EditorRow character={character} key={character.id} update={update} />)}
       {npc.map((character: Character) => <EditorRow character={character} key={character.id} update={update} />)}
     </div>

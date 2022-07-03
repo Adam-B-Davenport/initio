@@ -45,7 +45,8 @@ const Home: NextPage = () => {
 
   const toggleEdit = () => {
     setEdit(!edit)
-    startInitiative(currentTurn.concat(nextTurn))
+    setCurrent(currentTurn)
+    setNext(nextTurn)
   }
 
   const startOver = () => {
@@ -94,7 +95,6 @@ const Home: NextPage = () => {
           {nextTurn.map(char => <CharacterDisplay character={char} key={char.id} />)}
         </div>
         <div className='controls'>
-
           <button className='btn' onClick={prev}>&lt;=</button>
           <button className='btn' onClick={next}>=&gt;</button>
           <button className='btn' onClick={() => setEdit(!edit)}>≡</button>
@@ -107,13 +107,11 @@ const Home: NextPage = () => {
     return (
       <div className="App">
         <h1>Turn {turn}</h1>
-        <div className='initiativeList'>
           <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} />
-        </div>
         <div className='controls'>
           <button className='btn' onClick={addChar}>+</button>
-          <button className='btn' onClick={toggleEdit}>≡</button>
           <button className='btn' onClick={startOver}>Reset</button>
+          <button className='btn' onClick={toggleEdit}>≡</button>
         </div>
       </div>
     );

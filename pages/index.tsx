@@ -33,16 +33,19 @@ const Home: NextPage = () => {
   }
 
   const addChar = () => {
-    const id = Math.floor(Math.random() * 99999) + 5
     const char = {
-      id: id,
+      id: 0,
       name: "npc",
       initiative: 0,
       isPlayer: false,
     }
     axios.post('/api/character', char)
-      .catch(ex => console.log(ex))
-    setCurrent(currentTurn.concat(char))
+      .then(response => {
+        console.log(char.id, response.data)
+        char.id = response.data
+        setCurrent(currentTurn.concat(char))
+      })
+      .catch(() => alert("Failed to add new character."))
   }
 
   const hook = () => {

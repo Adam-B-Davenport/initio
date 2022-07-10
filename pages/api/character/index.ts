@@ -42,7 +42,7 @@ let characters =
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Array<Character>>
+  res: NextApiResponse<Array<Character> | number>
 ) {
   switch (req.method) {
     case "POST":
@@ -55,8 +55,8 @@ export default function handler(
       //   }
       // }).then(x => console.log(x))
       // prisma.character.findMany().then(x => console.log(x))
-      AddCharacter(req.body as Character)
-      res.status(204)
+      const id = AddCharacter(req.body as Character)
+      res.status(200).send(id)
       break
     case "GET":
       res.status(200).json(GetAllCharacters())

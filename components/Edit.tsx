@@ -1,7 +1,8 @@
+import axios from 'axios'
 import { ChangeEvent, useState } from 'react'
 import type { Character } from '../types/character'
 
-const EditorRow = ({ character, update }: { character: Character, update: () => void }) => {
+const EditorRow = ({ character, update, deleted }: { character: Character, update: () => void, deleted: (char: Character) => void }) => {
   const [name, setName] = useState(`${character.name}`)
   const [initiative, setInitiative] = useState(`${character.initiative}`)
 
@@ -11,14 +12,21 @@ const EditorRow = ({ character, update }: { character: Character, update: () => 
     update()
   }
 
+  const deleteCharacter = () => {
+    axios.delete(`/api/character/${character.id}`)
+      .catch(ex => console.log(ex))
+    deleted(character)
+  }
+
   const initiativeChange = (event: ChangeEvent<HTMLInputElement>) => {
     try {
-      console.log(event.target.value)
-      const val = parseInt(event.target.value)
-      setInitiative(event.target.value)
+      const val = parseFloat(event.target.value)
       if (val) {
         character.initiative = val
         update()
+        setInitiative(event.target.value)
+      } else {
+        setInitiative(event.target.value)
       }
     }
     catch (e) {
@@ -28,19 +36,19 @@ const EditorRow = ({ character, update }: { character: Character, update: () => 
   }
   return (
     <>
-    <div className={`${character.isPlayer ? "player" : "enemy"} character`} >
-      <div className='charGrid'>
-        <div className='charName'>
-          <input value={name} onChange={nameChange} />
+      <div className={`${character.isPlayer ? "player" : "enemy"} character`} >
+        <div className='charGrid'>
+          <div className='charName'>
+            <input value={name} onChange={nameChange} />
+          </div>
+          <div className='initiative'>
+            <input typeof='number' value={initiative} onChange={initiativeChange} />
+          </div>
         </div>
-        <div className='initiative'>
-          <input typeof='number' value={initiative} onChange={initiativeChange} />
-        </div>
+      </div >
+      <div className='outerCol'>
+        <input type='button' className='deleteButton' value='X' onClick={deleteCharacter} />
       </div>
-    </div >
-    <div className='outerCol'>
-      <input type='button' className='deleteButton' value='X'/>
-    </div>
     </>
   )
 
@@ -53,10 +61,15 @@ const Editor = ({ characters, startInitiative }: { characters: Array<Character>,
   const update = () => {
     startInitiative(characters)
   }
+
+  const deleted = (char: Character) => {
+    startInitiative(characters.filter(c => c.id != char.id))
+  }
+
   return (
     <div className='initiativeList'>
-      {players.map((character: Character) => <EditorRow character={character} key={character.id} update={update} />)}
-      {npc.map((character: Character) => <EditorRow character={character} key={character.id} update={update} />)}
+      {players.map((character: Character) => <EditorRow character={character} key={character.id} update={update} deleted={deleted} />)}
+      {npc.map((character: Character) => <EditorRow character={character} key={character.id} update={update} deleted={deleted} />)}
     </div>
   )
 }

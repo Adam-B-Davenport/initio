@@ -13,10 +13,19 @@ const InitCompare = (a: Character, b: Character) => {
 
 const Home: NextPage = () => {
 
+  // Todo- merge into one list of charcters and have a bool flag for current turn
   const [currentTurn, setCurrent] = useState(Array<Character>())
   const [nextTurn, setNext] = useState(Array<Character>())
   const [turn, setTurn] = useState(1)
   const [edit, setEdit] = useState(false)
+
+  const updateCharacter = (char: Character) => {
+    axios.put(`/api/character/${char.id}`, char)
+      .catch(ex => console.log(ex))
+  }
+
+  const updateCharacters = (chars: Array<Character>) => {
+  }
 
   const startInitiative = (chars: Array<Character>) => {
     setCurrent(chars.sort(InitCompare))
@@ -32,15 +41,18 @@ const Home: NextPage = () => {
       isPlayer: false,
     }
     axios.post('/api/character', char)
+      .catch(ex => console.log(ex))
     setCurrent(currentTurn.concat(char))
   }
 
   const hook = () => {
-    axios.get('/api/character').then(
-      response => {
-        startInitiative(response.data)
-      }
-    )
+    axios.get('/api/character')
+      .then(
+        response => {
+          startInitiative(response.data)
+        }
+      )
+      .catch(ex => console.log(ex))
   }
 
   const toggleEdit = () => {
@@ -107,7 +119,7 @@ const Home: NextPage = () => {
     return (
       <div className="App">
         <h1>Turn {turn}</h1>
-          <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} />
+        <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} />
         <div className='controls'>
           <button className='btn' onClick={addChar}>+</button>
           <button className='btn' onClick={startOver}>Reset</button>

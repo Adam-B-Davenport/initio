@@ -24,8 +24,9 @@ const Home: NextPage = () => {
       .catch(ex => console.log(ex))
   }
 
-  const updateCharacters = (chars: Array<Character>) => {
-    chars.map(c =>  updateCharacter(c) )
+  const updateCharacters = () => {
+    currentTurn.concat(nextTurn)
+      .map(c => updateCharacter(c))
   }
 
   const startInitiative = (chars: Array<Character>) => {
@@ -42,7 +43,6 @@ const Home: NextPage = () => {
     }
     axios.post('/api/character', char)
       .then(response => {
-        console.log(char.id, response.data)
         char.id = response.data
         setCurrent(currentTurn.concat(char))
       })
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
 
   const toggleEdit = () => {
     setEdit(!edit)
-    updateCharacters(currentTurn.concat(nextTurn))
+    updateCharacters()
     setCurrent(currentTurn)
     setNext(nextTurn)
   }
@@ -85,6 +85,7 @@ const Home: NextPage = () => {
       setNext(new Array<Character>())
       setTurn(turn + 1)
     }
+    updateCharacters()
   }
   const prev = () => {
     if (nextTurn.length > 0 || turn > 1) {
@@ -100,6 +101,7 @@ const Home: NextPage = () => {
         setTurn(turn - 1)
       }
     }
+    updateCharacters()
   }
 
   if (!edit) {

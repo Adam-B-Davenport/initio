@@ -53,7 +53,7 @@ export const AddCharacter = (char: Character) => {
   const id = Math.floor(Math.random() * 99999) + 5
   char.id = id
   g.characters = g.characters.concat(char)
-  return char.id
+ return char.id
 }
 
 export const DeleteCharacter = (id: Number) => {

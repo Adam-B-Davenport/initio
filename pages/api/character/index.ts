@@ -56,7 +56,7 @@ export default function handler(
       // }).then(x => console.log(x))
       // prisma.character.findMany().then(x => console.log(x))
       AddCharacter(req.body as Character)
-      res.status(200).end()
+      res.status(204)
       break
     case "GET":
       res.status(200).json(GetAllCharacters())

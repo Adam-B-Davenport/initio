@@ -25,6 +25,7 @@ const Home: NextPage = () => {
   }
 
   const updateCharacters = (chars: Array<Character>) => {
+    chars.map(c =>  updateCharacter(c) )
   }
 
   const startInitiative = (chars: Array<Character>) => {
@@ -60,6 +61,7 @@ const Home: NextPage = () => {
 
   const toggleEdit = () => {
     setEdit(!edit)
+    updateCharacters(currentTurn.concat(nextTurn))
     setCurrent(currentTurn)
     setNext(nextTurn)
   }

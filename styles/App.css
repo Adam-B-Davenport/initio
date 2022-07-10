@@ -24,6 +24,8 @@ body{
   margin: auto;
   vertical-align: middle;
   font-size: 1.5em;
+  height: 100%;
+  width: 100%;
 }
 
 
@@ -104,7 +106,7 @@ body{
 .outerCol {
   display: inline;
   grid-column: 4;
-  padding-top: 0.75em;
+  padding: 8%;
 }
 
 .btn {

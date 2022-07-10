@@ -6,7 +6,7 @@ import CharacterDisplay from '../components/CharacterDisplay';
 import Editor from '../components/Edit';
 //import styles from '../styles/Home.module.css'
 
-const InitComp = (a: Character, b: Character) => {
+const InitCompare = (a: Character, b: Character) => {
   return b.initiative - a.initiative
 
 }
@@ -19,24 +19,24 @@ const Home: NextPage = () => {
   const [edit, setEdit] = useState(false)
 
   const startInitiative = (chars: Array<Character>) => {
-    setCurrent(chars.sort(InitComp))
+    setCurrent(chars.sort(InitCompare))
     setNext(new Array<Character>())
   }
 
   const addChar = () => {
     const id = Math.floor(Math.random() * 99999) + 5
-    setCurrent(currentTurn.concat({
+    const char = {
       id: id,
       name: "npc",
       initiative: 0,
       isPlayer: false,
-    })
-    .sort(InitComp)
-    )
+    }
+    axios.post('/api/character', char)
+    setCurrent(currentTurn.concat(char))
   }
 
   const hook = () => {
-    axios.get('/api/characters').then(
+    axios.get('/api/character').then(
       response => {
         startInitiative(response.data)
       }
@@ -64,7 +64,7 @@ const Home: NextPage = () => {
       setCurrent(newCur)
     }
     else {
-      setCurrent(nextTurn.concat(...currentTurn).sort(InitComp))
+      setCurrent(nextTurn.concat(...currentTurn).sort(InitCompare))
       setNext(new Array<Character>())
       setTurn(turn + 1)
     }

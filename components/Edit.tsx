@@ -47,7 +47,9 @@ const EditorRow = ({ character, update, deleted }: { character: Character, updat
         </div>
       </div >
       <div className='outerCol'>
-        <input type='button' className='deleteButton' value='X' onClick={deleteCharacter} />
+        {!character.isPlayer &&
+          <input type='button' className='deleteButton' value='X' onClick={deleteCharacter} />
+        }
       </div>
     </>
   )

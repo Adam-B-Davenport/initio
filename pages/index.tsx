@@ -21,7 +21,7 @@ const Home: NextPage = () => {
 
   const updateCharacter = (char: Character) => {
     axios.put(`/api/character/${char.id}`, char)
-      .catch(ex => console.log(ex))
+      .catch(ex => console.log('failed to update character', ex))
   }
 
   const updateCharacters = () => {
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
           startInitiative(response.data)
         }
       )
-      .catch(ex => console.log(ex))
+      .catch(ex => console.log('failed to get all characters', ex))
   }
 
   const toggleEdit = () => {

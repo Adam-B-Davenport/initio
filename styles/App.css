@@ -11,7 +11,7 @@ body{
   margin: auto;
   box-sizing: border-box;
   height: 100%;
-  width: 100%;
+  width: 75%;
   border-style: none;
   border-width: 0px;
   outline: none;
@@ -21,11 +21,12 @@ body{
   color: #eeeeee;
   background-color: #323232;
   border-radius: 0.25em;
-  margin: auto;
   vertical-align: middle;
   font-size: 1.5em;
   height: 100%;
-  width: 100%;
+  width: 45%;
+  float: left;
+  margin: 0px, 50px;
 }
 
 
@@ -88,7 +89,7 @@ body{
 }
 
 .charName {
-  display: grid;
+  display: inline;
   grid-column: 1;
 }
 
@@ -107,6 +108,7 @@ body{
   display: inline;
   grid-column: 4;
   padding: 8%;
+  font-size: 1em;
 }
 
 .btn {

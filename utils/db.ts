@@ -50,7 +50,7 @@ if (!g.characters) {
         isPlayer: true,
         isDone: false
       }
-  ]
+    ]
 }
 
 export const UpdateGame = (data: Game) => {

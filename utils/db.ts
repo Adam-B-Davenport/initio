@@ -1,6 +1,16 @@
 import { Character } from "../types/character"
+import { Game } from "../types/game"
 
 let g = global as any
+if (!g.games) {
+  g.games = 
+  [
+    {
+      id: 1,
+      round: 1,
+    }
+  ]
+}
 
 if (!g.characters) {
   g.characters =
@@ -39,6 +49,14 @@ if (!g.characters) {
     ]
 }
 
+export const UpdateGame = (data: Game) => {
+  const idx = g.games.findIndex((game: Game) => game.id == game.id)
+  g.game[idx] = data
+}
+
+export const GetAllGames = () => {
+  return g.characters.map((game: Game) => ({ ...game }))
+}
 
 export const GetAllCharacters = () => {
   return g.characters.map((char: Character) => ({ ...char }))
@@ -53,7 +71,7 @@ export const AddCharacter = (char: Character) => {
   const id = Math.floor(Math.random() * 99999) + 5
   char.id = id
   g.characters = g.characters.concat(char)
- return char.id
+  return char.id
 }
 
 export const DeleteCharacter = (id: Number) => {

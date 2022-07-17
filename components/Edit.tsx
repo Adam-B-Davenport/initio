@@ -3,8 +3,15 @@ import { ChangeEvent, useState } from 'react'
 import type { Character } from '../types/character'
 
 const EditorRow = ({ character, update, deleted }: { character: Character, update: () => void, deleted: (char: Character) => void }) => {
-  const [name, setName] = useState(`${character.name}`)
+  const [name, setName] = useState(character.name)
   const [initiative, setInitiative] = useState(`${character.initiative}`)
+  const [_, setIsPlayer] = useState(character.isPlayer)
+
+  const togglePlayer = () => {
+    character.isPlayer = !character.isPlayer
+    setIsPlayer(character.isPlayer)
+    update()
+  }
 
   const nameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
@@ -13,9 +20,10 @@ const EditorRow = ({ character, update, deleted }: { character: Character, updat
   }
 
   const deleteCharacter = () => {
-    axios.delete(`/api/character/${character.id}`)
-      .catch(ex => console.log(ex))
     deleted(character)
+    axios
+      .delete(`/api/character/${character.id}`)
+      .catch(ex => console.log(ex))
   }
 
   const initiativeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +38,7 @@ const EditorRow = ({ character, update, deleted }: { character: Character, updat
       }
     }
     catch (e) {
-      console.log(e)
+      console.log('failed to process initiative change', e)
 
     }
   }
@@ -47,8 +55,9 @@ const EditorRow = ({ character, update, deleted }: { character: Character, updat
         </div>
       </div >
       <div className='outerCol'>
+        <input type='button' className='deleteButton' value='=' onClick={togglePlayer} tabIndex={9999}/>
         {!character.isPlayer &&
-          <input type='button' className='deleteButton' value='X' onClick={deleteCharacter} />
+          <input type='button' className='deleteButton' value='X' onClick={deleteCharacter} tabIndex={9999} />
         }
       </div>
     </>

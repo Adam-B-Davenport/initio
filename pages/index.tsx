@@ -30,8 +30,8 @@ const Home: NextPage = () => {
   }
 
   const startInitiative = (chars: Array<Character>) => {
-    setCurrent(currentTurn)
-    setNext(nextTurn)
+    setCurrent(currentTurn.sort(InitCompare))
+    setNext(nextTurn.sort(InitCompare))
   }
 
   const addChar = () => {
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
     axios.get('/api/character')
       .then(
         response => {
-          setCurrent(response.data)
+          setCurrent(response.data.sort(InitCompare))
         }
       )
       .catch(ex => console.log('failed to get all characters', ex))

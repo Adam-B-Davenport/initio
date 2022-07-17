@@ -85,7 +85,7 @@ body{
   display: grid;
   grid-template-columns: 5% 80% 5% 10%;
   margin: auto;
-  max-width: 1024px;
+  max-width: 1200px;
 }
 
 .charName {

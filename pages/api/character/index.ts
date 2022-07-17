@@ -10,33 +10,38 @@ let characters =
 
     {
       id: 1,
-      name: "Alduin",
+      name: "Miyamoto",
       initiative: 0,
-      isPlayer: true
+      isPlayer: true,
+      isDone: false
     },
     {
       id: 2,
-      name: "Asma",
+      name: "Rothomir",
       initiative: 0,
-      isPlayer: true
+      isPlayer: true,
+      isDone: false
     },
     {
       id: 3,
-      name: "Adira",
+      name: "Valen",
       initiative: 0,
-      isPlayer: true
+      isPlayer: true,
+      isDone: false
     },
     {
       id: 4,
-      name: "Dugrin",
+      name: "Da'Jerra",
       initiative: 0,
-      isPlayer: true
+      isPlayer: true,
+      isDone: false
     },
     {
       id: 5,
-      name: "Yemdu",
+      name: "Aloxine",
       initiative: 0,
-      isPlayer: true
+      isPlayer: true,
+      isDone: false
     }
   ]
 

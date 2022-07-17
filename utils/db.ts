@@ -3,50 +3,54 @@ import { Game } from "../types/game"
 
 let g = global as any
 if (!g.games) {
-  g.games = 
-  [
-    {
-      id: 1,
-      round: 1,
-    }
-  ]
+  g.games =
+    [
+      {
+        id: 1,
+        round: 1,
+      }
+    ]
 }
 
 if (!g.characters) {
   g.characters =
     [
-
       {
         id: 1,
-        name: "Alduin",
+        name: "Miyamoto",
         initiative: 0,
-        isPlayer: true
+        isPlayer: true,
+        isDone: false
       },
       {
         id: 2,
-        name: "Asma",
+        name: "Rothomir",
         initiative: 0,
-        isPlayer: true
+        isPlayer: true,
+        isDone: false
       },
       {
         id: 3,
-        name: "Adira",
+        name: "Valen",
         initiative: 0,
-        isPlayer: true
+        isPlayer: true,
+        isDone: false
       },
       {
         id: 4,
-        name: "Dugrin",
+        name: "Da'Jerra",
         initiative: 0,
-        isPlayer: true
+        isPlayer: true,
+        isDone: false
       },
       {
         id: 5,
-        name: "Yemdu",
+        name: "Aloxine",
         initiative: 0,
-        isPlayer: true
+        isPlayer: true,
+        isDone: false
       }
-    ]
+  ]
 }
 
 export const UpdateGame = (data: Game) => {

@@ -54,7 +54,7 @@ const Home: NextPage = () => {
     axios.get('/api/character')
       .then(
         response => {
-          startInitiative(response.data)
+          setCurrent(response.data)
         }
       )
       .catch(ex => console.log('failed to get all characters', ex))

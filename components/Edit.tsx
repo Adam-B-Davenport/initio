@@ -65,7 +65,7 @@ const EditorRow = ({ character, update, deleted }: { character: Character, updat
 
 }
 
-const Editor = ({ characters, startInitiative }: { characters: Array<Character>, startInitiative: (chars: Array<Character>) => void, deleteChar: (char: Character) => void}) => {
+const Editor = ({ characters, startInitiative, deleteChar }: { characters: Array<Character>, startInitiative: (chars: Array<Character>) => void, deleteChar: (char: Character) => void}) => {
   characters = characters.sort((a, b) => a.name.localeCompare(b.name))
   const players = characters.filter(char => char.isPlayer)
   const npc = characters.filter(char => !char.isPlayer)
@@ -74,7 +74,7 @@ const Editor = ({ characters, startInitiative }: { characters: Array<Character>,
   }
 
   const deleted = (char: Character) => {
-    startInitiative(characters.filter(c => c.id != char.id))
+    deleteChar(char)
   }
 
   return (

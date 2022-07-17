@@ -59,6 +59,12 @@ const Home: NextPage = () => {
       .catch(ex => console.log('failed to get all characters', ex))
   }
 
+  const deleteChar = (char: Character) => {
+    const id = char.id
+    setCurrent(currentTurn.filter(c => c.id != id))
+    setNext(nextTurn.filter(c => c.id != id))
+  }
+
   const toggleEdit = () => {
     setEdit(!edit)
     updateCharacters()
@@ -126,7 +132,7 @@ const Home: NextPage = () => {
     return (
       <div className="App">
         <h1>Turn {turn}</h1>
-        <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} />
+        <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} deleteChar={deleteChar}/>
         <div className='controls'>
           <button className='btn' onClick={addChar}>+</button>
           <button className='btn' onClick={startOver}>Reset</button>

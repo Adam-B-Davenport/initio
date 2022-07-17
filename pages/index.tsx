@@ -44,10 +44,9 @@ const Home: NextPage = () => {
     axios.post('/api/character', char)
       .then(response => {
         char.id = response.data
-        startInitiative([])
+        setCurrent(currentTurn.concat(char))
       })
       .catch(() => alert("Failed to add new character."))
-    setCurrent(currentTurn.concat(char))
   }
 
   const hook = () => {

@@ -8,7 +8,14 @@ datasource db {
 }
 
 model Character {
-    id         Int    @id @default(autoincrement())
+    id         Int     @id @default(autoincrement())
     name       String
-    initiative Int
+    initiative Int     @default(0)
+    isDone     Boolean @default(false)
+}
+
+model Party {
+    id    Int    @id @default(autoincrement())
+    name  String
+    round Int    @default(0)
 }

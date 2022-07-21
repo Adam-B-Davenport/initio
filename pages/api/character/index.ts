@@ -5,41 +5,6 @@ import '../../../utils/db'
 import { AddCharacter, DeleteCharacter, GetAllCharacters } from '../../../utils/db'
 import prisma from '../../../utils/prisma'
 
-let characters =
-  [
-
-    {
-      id: 1,
-      name: "Alduin",
-      initiative: 0,
-      isPlayer: true
-    },
-    {
-      id: 2,
-      name: "Asma",
-      initiative: 0,
-      isPlayer: true
-    },
-    {
-      id: 3,
-      name: "Adira",
-      initiative: 0,
-      isPlayer: true
-    },
-    {
-      id: 4,
-      name: "Dugrin",
-      initiative: 0,
-      isPlayer: true
-    },
-    {
-      id: 5,
-      name: "Yemdu",
-      initiative: 0,
-      isPlayer: true
-    }
-  ]
-
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Array<Character> | number>

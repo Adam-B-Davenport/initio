@@ -30,13 +30,13 @@ const Home: NextPage = () => {
   }
 
   const startInitiative = (chars: Array<Character>) => {
-    setCurrent(chars.sort(InitCompare))
-    setNext(new Array<Character>())
+    setCurrent(currentTurn.sort(InitCompare))
+    setNext(nextTurn.sort(InitCompare))
   }
 
   const addChar = () => {
     const char = {
-      id: 0,
+      id: 999 + Math.floor(Math.random() * 99999),
       name: "npc",
       initiative: 0,
       isPlayer: false,
@@ -53,10 +53,16 @@ const Home: NextPage = () => {
     axios.get('/api/character')
       .then(
         response => {
-          startInitiative(response.data)
+          setCurrent(response.data.sort(InitCompare))
         }
       )
       .catch(ex => console.log('failed to get all characters', ex))
+  }
+
+  const deleteChar = (char: Character) => {
+    const id = char.id
+    setCurrent(currentTurn.filter(c => c.id != id))
+    setNext(nextTurn.filter(c => c.id != id))
   }
 
   const toggleEdit = () => {
@@ -126,7 +132,7 @@ const Home: NextPage = () => {
     return (
       <div className="App">
         <h1>Turn {turn}</h1>
-        <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} />
+        <Editor characters={currentTurn.concat(nextTurn)} startInitiative={startInitiative} deleteChar={deleteChar}/>
         <div className='controls'>
           <button className='btn' onClick={addChar}>+</button>
           <button className='btn' onClick={startOver}>Reset</button>
